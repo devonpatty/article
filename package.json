@@ -25,5 +25,9 @@
     "gray-matter": "^3.1.1",
     "markdown-it": "^8.4.0",
     "util": "^0.10.3"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0"
   }
 }
