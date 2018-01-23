@@ -1,0 +1,15 @@
+<% include header.ejs %>
+<% include function.ejs %>
+<div class="thumbnail-container">
+  <% props.forEach(function(prop) { %>
+    <div class="list-container">
+      <img class="container-article-image" alt='<%= prop.data.title%> logo'
+           src='<%= prop.data.image%>'/>
+      <div class="container-group">
+        <a href='/articles/<%=prop.data.slug %>' class="container-article-title"><%= prop.data.title %></a>
+        <span class="container-article-date"><%= formatDate(prop.data.date) %></span>
+      </div>
+    </div>
+  <% }); %>
+</div>
+<% include footer.ejs %>

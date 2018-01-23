@@ -1,0 +1,10 @@
+<%
+formatDate = function(string) {
+  const temp = new Date(string);
+  const date = temp.getDate();
+  const month = temp.getMonth()+1;
+  const year = temp.getFullYear();
+  const dmy = date + '.' + month + '.' + year;
+  return dmy;
+}
+%>
