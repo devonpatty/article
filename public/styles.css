@@ -27,26 +27,24 @@ a:link, a:visited, a:hover, a:active {
 
 .wrapper {
   max-width: 1200px;
+  width: 100%;
 }
 
 .header {
-  position: relative;
-  background-image: url('header.jpg');
-  background-size: 100% 400px;
-  height: 400px;
-  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* .header-image {
+.image {
   position: relative;
-  width: 1200px;
-  height: 600px;
-} */
+  height: 500px;
+  width: 100%;
+}
 
 .header-title {
   position: absolute;
-  top: 45%;
-  left: 40%;
   font-family: 'Roboto', 'sans-serif';
   font-size: 48px;
   font-weight: bold;
@@ -131,5 +129,20 @@ blockquote {
 }
 
 .goback {
+  text-align: center;
+  width: 100%;
   font-weight: bold;
+}
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 15px;
+}
+
+.err-msg {
+  text-align: center;
+  width: 100%;
 }

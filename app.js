@@ -33,6 +33,13 @@ function sortMiddleware(req, res, next) {
   next();
 }
 
+function notFoundHandler(req, res, next) {
+  res.status(404);
+  res.render('error', {
+    title: 'Fannst ekki',
+    error: 'Fannst ekki efnið!'
+  });
+}
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'articles')));
@@ -50,6 +57,20 @@ app.get('/', initMiddleWare, sortMiddleware, (req, res) => {
   res.render('main', {
     title: 'Greinalisti',
     props: data,
+  });
+});
+
+app.use( (req, res, next) => {
+  const err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+app.use( (err, req, res, next) => {
+  res.status(err.status || 500);
+  res.render('error', {
+    title: "Villa",
+    error: "Fannst ekki efnið"
   });
 });
 
