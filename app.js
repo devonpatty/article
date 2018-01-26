@@ -36,22 +36,22 @@ async function sortMiddleware(req, res, next) {
 function catchErrors(fn) {
   return function (req, res, next) {
     return fn(req, res, next).catch(next);
-  }
+  };
 }
 
 function notFoundHandler(req, res, next) {
   res.status(404);
   res.render('error', {
-    title: "Fannst ekki",
-    error: "Fannst ekki síða"
+    title: 'Fannst ekki',
+    error: 'Fannst ekki síða',
   });
 }
 
 function errorHandler(err, req, res, next) {
   res.status(500);
   res.render('error', {
-    title: "Villa",
-    error: "Villa kom upp!"
+    title: 'Villa',
+    error: 'Villa kom upp!',
   });
 }
 
@@ -76,7 +76,7 @@ app.get('/', catchErrors(initMiddleWare), catchErrors(sortMiddleware), (req, res
 app.use('/articles', route);
 app.use('/articles/:slug', route);
 
-app.use("*", notFoundHandler);
+app.use('*', notFoundHandler);
 app.use(errorHandler);
 
 app.listen(port, hostname);
