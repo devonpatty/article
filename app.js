@@ -28,16 +28,30 @@ async function initMiddleWare(req, res, next) {
 }
 
 /* sort the array-list based on the time newest-to-oldest */
-function sortMiddleware(req, res, next) {
-  helper.sort(res.locals);
+async function sortMiddleware(req, res, next) {
+  await helper.sort(res.locals);
   next();
+}
+
+function catchErrors(fn) {
+  return function (req, res, next) {
+    return fn(req, res, next).catch(next);
+  }
 }
 
 function notFoundHandler(req, res, next) {
   res.status(404);
   res.render('error', {
-    title: 'Fannst ekki',
-    error: 'Fannst ekki efnið!'
+    title: "Fannst ekki",
+    error: "Fannst ekki síða"
+  });
+}
+
+function errorHandler(err, req, res, next) {
+  res.status(500);
+  res.render('error', {
+    title: "Villa",
+    error: "Villa kom upp!"
   });
 }
 
@@ -49,29 +63,20 @@ app.set('view engine', 'ejs');
 app.use(initMiddleWare);
 app.use(sortMiddleware);
 
-app.use('/articles/', route);
 
 // initialize the articles list
-app.get('/', initMiddleWare, sortMiddleware, (req, res) => {
+app.get('/', catchErrors(initMiddleWare), catchErrors(sortMiddleware), (req, res) => {
   const data = res.locals;
   res.render('main', {
-    title: 'Greinalisti',
+    title: 'Greinasafnið',
     props: data,
   });
 });
 
-app.use( (req, res, next) => {
-  const err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+app.use('/articles', route);
+app.use('/articles/:slug', route);
 
-app.use( (err, req, res, next) => {
-  res.status(err.status || 500);
-  res.render('error', {
-    title: "Villa",
-    error: "Fannst ekki efnið"
-  });
-});
+app.use("*", notFoundHandler);
+app.use(errorHandler);
 
 app.listen(port, hostname);

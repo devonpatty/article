@@ -3,8 +3,10 @@
 <div class="thumbnail-container">
   <% props.forEach(function(prop) { %>
     <div class="list-container">
-      <img class="container-article-image" alt='<%= prop.data.title%> logo'
+      <span class="image-container">
+        <img class="container-article-image"
            src='<%= prop.data.image%>'/>
+      </span>
       <div class="container-group">
         <a href='/articles/<%=prop.data.slug %>' class="container-article-title"><%= prop.data.title %></a>
         <span class="container-article-date"><%= formatDate(prop.data.date) %></span>
